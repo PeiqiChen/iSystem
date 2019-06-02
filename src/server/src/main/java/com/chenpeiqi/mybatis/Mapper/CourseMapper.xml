@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenpeiqi.mybatis.Mapper.CourseMapper">
+    <select id="getCourseByCid" parameterType="string" resultType="com.chenpeiqi.mybatis.Bean.Course" >
+        select * from course where cid=#{cid}
+    </select>
+    <select id="getCourseByCname" parameterType="string" resultType="com.chenpeiqi.mybatis.Bean.Course" >
+        select * from course where cname=#{cname}
+    </select>
+    <update id="updateCourseByCid" parameterType="com.chenpeiqi.mybatis.Bean.Course" >
+        update course set cname=#{cname},tname=#{tname},credit=#{credit},fit_grade=#{fit_grade},cancel_year=#{cancel_year} where cid=#{cid}
+    </update>
+    <insert id="addCourse" parameterType="com.chenpeiqi.mybatis.Bean.Course">
+        insert into course(cid,cname,tname,credit,fit_grade,cancel_year) values
+        (#{cid},#{cname} ,#{tname} ,#{credit} ,#{fit_grade} ,#{cancel_year} )
+    </insert>
+    <delete id="deleteCourseByCid" parameterType="string">
+        delete course.* from course where cid=#{cid}
+    </delete>
+    <select id="getAllCourse" resultType="com.chenpeiqi.mybatis.Bean.Course">
+        select * from course
+    </select>
+</mapper>

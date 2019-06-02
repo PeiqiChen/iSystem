@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenpeiqi.mybatis.Mapper.InformationMapper">
+    <select id="getInformationByStudent_id" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id=#{student_id}
+    </select>
+    <select id="getInformationByCourse_id" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where course_id=#{course_id}
+    </select>
+    <select id="getInformationByStudent_name" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id in( select sid from student where sname=#{student_name});
+    </select>
+    <select id="getInformationByCourse_name" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where course_id in( select cid from course where cname=#{course_name});
+    </select>
+    <select id="getInformationByStudent_idAndCourse_id" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id=#{param1}  and course_id=#{param2}
+    </select>
+    <select id="getInformationByStudent_nameAndCourse_id" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id in(select sid from student where sname=#{param1} )
+        and course_id=#{param2}
+    </select>
+    <select id="getInformationByStudent_idAndCourse_name" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id=#{param1}
+        and course_id in(select cid from course where cname=#{param2} )
+    </select>
+    <select id="getInformationByStudent_nameAndCourse_name" resultType="com.chenpeiqi.mybatis.Bean.Information" >
+        select * from information where student_id in(select sid from student where sname=#{param1} )
+        and course_id in(select cid from course where cname=#{param2} )
+    </select>
+    <select id="getAverageScoreByStudent_name" resultType="int" >
+        select avg(score) from information where student_id in( select sid from student where sname=#{student_name} )
+    </select>
+    <select id="getAverageScoreByEntry_yearAndClazz" resultType="int" >
+        select avg(score) from information where student_id in(
+        select sid from student where entry_year=#{param1}  and clazz=#{param2} )
+    </select>
+    <select id="getAverageScoreByCourse_name" resultType="int" >
+        select avg(score) from information where course_id in(select cid from course where cname=#{course_name})
+    </select>
+    <select id="getNumOfStudentbyCourse_nameandScoreRange" resultType="int" >
+        select count(*) from information where course_id in(
+        select cid from course where cname=#{param1}
+        ) and score &gt;= #{param2}  and score &lt;= #{param3} ;
+    </select>
+
+
+
+
+    <update id="updateInformationByStudent_idAndCourse_id" parameterType="com.chenpeiqi.mybatis.Bean.Information" >
+      update information set involved_year=#{involved_year} ,score=#{score} where student_id=#{student_id} and course_id=#{course_id}
+    </update>
+    <insert id="addInformation" parameterType="com.chenpeiqi.mybatis.Bean.Information">
+        insert into information(student_id,course_id,involved_year,score) values
+        (#{student_id},#{course_id},#{involved_year},#{score})
+    </insert>
+    <delete id="deleteInformationByStudent_idAndCourse_id" >
+        delete information.* from information where student_id=#{param1}  and course_id=#{param2}
+    </delete>
+    <select id="getAllInformation" resultType="com.chenpeiqi.mybatis.Bean.Information">
+        select * from information
+    </select>
+</mapper>

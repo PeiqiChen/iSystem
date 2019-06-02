@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenpeiqi.mybatis.Mapper.StudentMapper">
+    <select id="getStudentBySid" parameterType="string" resultType="com.chenpeiqi.mybatis.Bean.Student" >
+        select * from student where sid=#{sid}
+    </select>
+    <select id="getStudentBySname" parameterType="string" resultType="com.chenpeiqi.mybatis.Bean.Student" >
+        select * from student where sname=#{sname}
+    </select>
+    <update id="updateStudentBySid" parameterType="com.chenpeiqi.mybatis.Bean.Student" >
+        update student set sname=#{sname},sex=#{sex},entry_age=#{entry_age},entry_year=#{entry_year} ,clazz=#{clazz}   where sid=#{sid}
+    </update>
+    <insert id="addStudent" parameterType="com.chenpeiqi.mybatis.Bean.Student">
+        insert into student(sid,sname,sex,entry_age,entry_year,clazz) values
+        (#{sid},#{sname},#{sex},#{entry_age},#{entry_year},#{clazz})
+    </insert>
+    <delete id="deleteStudentBySid" parameterType="string">
+        delete student.* from student where sid=#{sid}
+    </delete>
+    <select id="getAllStudent" resultType="com.chenpeiqi.mybatis.Bean.Student">
+        select * from student
+    </select>
+</mapper>
